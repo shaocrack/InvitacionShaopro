@@ -198,6 +198,28 @@ body {
   .btn { font-size: 15px; padding: 12px 14px; }
   .btn.small { font-size: 14px; padding: 10px 12px; width: 100%; }
   .actions, .actions.single, .actions.triple { grid-template-columns: 1fr; }
+  .topbar { margin-bottom: 12px; }
+}
+
+/* Extra responsive adjustments */
+@media (max-width: 820px) {
+  .container { padding: 16px; }
+  .card { padding: 18px; }
+  .actions, .actions.single, .actions.triple { grid-template-columns: 1fr; }
+  .btn.small { width: 100%; }
+  .editor-body { padding: 10px; }
+  .code-line { padding-left: 28px; }
+  .code-panel { padding: 10px; }
+  .code-field { flex-wrap: wrap; }
+  .code-input { min-width: 0; width: 100%; }
+  .json-code { font-size: 13px; }
+}
+
+@media (max-width: 400px) {
+  .title { font-size: 26px; }
+  .code-line { padding-left: 24px; }
+  .editor-header .tab { font-size: 12px; }
+  .pretty-inner { padding: 14px; }
 }
 
 /* Estética dev */
