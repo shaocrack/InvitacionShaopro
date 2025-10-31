@@ -19,12 +19,12 @@ const pDireccion = document.getElementById('p-direccion');
 const pFirma = document.getElementById('p-firma');
 const pFechaPie = document.getElementById('p-fecha-pie');
 
-// Modal confirmación
+// Modal confirmación (solo cuando se marca aceptar condiciones)
 const confirmModal = document.getElementById('confirm-modal');
 const confirmContinue = document.getElementById('confirm-continue');
 const confirmExit = document.getElementById('confirm-exit');
 const confirmText = document.getElementById('confirm-text');
-let pendingAction = 'none'; // 'none' | 'generate'
+let pendingAction = 'none';
 
 const audio = document.getElementById('bg-music');
 
@@ -63,7 +63,7 @@ function actualizarEstadoBoton() {
 nombreInput.addEventListener('input', actualizarEstadoBoton);
 aceptaCheck.addEventListener('change', actualizarEstadoBoton);
 
-// Mostrar confirmación al marcar aceptar
+// Mostrar confirmación al marcar aceptar (no al generar)
 aceptaCheck.addEventListener('change', () => {
   if (aceptaCheck.checked) {
     pendingAction = 'none';
@@ -91,26 +91,25 @@ generarBtn.addEventListener('click', () => {
     errorEl.textContent = 'Debes aceptar las condiciones para continuar.';
     return;
   }
-  // Confirmación previa a generar
-  pendingAction = 'generate';
-  abrirConfirmacion();
+  // Generar directamente (sin modal)
+  generarInvitacion(nombre);
 });
 
 function continuarDespuesDeConfirmar() {
-  if (pendingAction !== 'generate') return;
-  const nombre = normalizarNombre(nombreInput.value);
-  // Construye el objeto y renderiza como JSON
+  // Ya no dispara generación; solo cierra el modal tras confirmar
+  // (Se mantiene para compatibilidad si se requiere lógica futura)
+}
+
+function generarInvitacion(nombre) {
   const data = construirObjetoInvitacion(nombre);
   renderJson(data);
   invitacionSec.classList.remove('hidden');
   renderPretty(data);
   if (openMapsBtn) openMapsBtn.href = data.maps;
 
-  // Intenta asegurar música reproduciéndose
   intentarReproducirAudio();
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 
-  // Logs en terminal
   escribirTerminal(`$ node invitacion.js\n`);
   escribirTerminal(`> Generando invitación para ${nombre}...\n`);
   setTimeout(() => escribirTerminal('> Listo. Abra el panel de invitación.\n'), 500);
