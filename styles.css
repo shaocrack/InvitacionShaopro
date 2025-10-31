@@ -282,6 +282,7 @@ body {
 .pretty-sign { margin-top: 16px; text-align: right; }
 .sign-name { font-family: 'Great Vibes', cursive; font-size: 34px; color: var(--primary); }
 .sign-date { color: var(--muted); font-size: 14px; margin-top: -6px; }
+.sign-note { color: var(--muted); font-size: 12px; margin-top: 6px; text-align: right; }
 
 /* Tema oscuro */
 .theme-dark {
@@ -343,5 +344,12 @@ body {
 .prompt { color: #7fff7f; font-weight: 600; display: flex; align-items: center; gap: 6px; }
 .cursor { width: 10px; height: 16px; background: #7fff7f; display: inline-block; animation: blink 1s step-start infinite; }
 @keyframes blink { 50% { opacity: 0; } }
+
+
+/* Modal confirmación */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: grid; place-items: center; z-index: 20; padding: 16px; }
+.modal-card { width: min(92vw, 520px); background: var(--card); border-radius: 16px; box-shadow: var(--shadow); padding: 20px; text-align: center; }
+.modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+.theme-dark .modal-card { background: rgba(20,24,44,.9); }
 
 

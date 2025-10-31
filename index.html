@@ -90,6 +90,7 @@
                     <div class="pretty-sign">
                         <div class="sign-name" id="p-firma">Nombre</div>
                         <div class="sign-date" id="p-fecha-pie">Mañana, 31 de octubre</div>
+                        <div class="sign-note">Recuerde que usted ya aceptó las condiciones; debe asistir. Por ello, esta invitación queda firmada por Ud.</div>
                     </div>
                 </div>
             </div>
@@ -99,6 +100,17 @@
                 <button id="pause-music" class="btn small" title="M pausar/continuar, R reiniciar">Pausar música</button>
             </div>
         </section>
+
+        <div id="confirm-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+            <div class="modal-card">
+                <h3 id="confirm-title">Confirmación</h3>
+                <p id="confirm-text">Al aceptar esto y luego presionar ejecutar, usted se compromete a asistir.</p>
+                <div class="modal-actions">
+                    <button id="confirm-continue" class="btn">Continuar</button>
+                    <button id="confirm-exit" class="btn ghost">Salir</button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div class="hearts" aria-hidden="true"></div>

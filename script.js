@@ -19,6 +19,13 @@ const pDireccion = document.getElementById('p-direccion');
 const pFirma = document.getElementById('p-firma');
 const pFechaPie = document.getElementById('p-fecha-pie');
 
+// Modal confirmación
+const confirmModal = document.getElementById('confirm-modal');
+const confirmContinue = document.getElementById('confirm-continue');
+const confirmExit = document.getElementById('confirm-exit');
+const confirmText = document.getElementById('confirm-text');
+let pendingAction = 'none'; // 'none' | 'generate'
+
 const audio = document.getElementById('bg-music');
 
 const direccion = 'Portal Shopping, Avenidas Simón Bolívar, Panamericana Norte y calle, Capitán Giovanni Calles, Quito 170133';
@@ -56,6 +63,14 @@ function actualizarEstadoBoton() {
 nombreInput.addEventListener('input', actualizarEstadoBoton);
 aceptaCheck.addEventListener('change', actualizarEstadoBoton);
 
+// Mostrar confirmación al marcar aceptar
+aceptaCheck.addEventListener('change', () => {
+  if (aceptaCheck.checked) {
+    pendingAction = 'none';
+    abrirConfirmacion();
+  }
+});
+
 // Autoplay al enfocar o teclear (gesto de usuario)
 let audioIntentadoPorInput = false;
 nombreInput.addEventListener('focus', () => {
@@ -76,7 +91,14 @@ generarBtn.addEventListener('click', () => {
     errorEl.textContent = 'Debes aceptar las condiciones para continuar.';
     return;
   }
+  // Confirmación previa a generar
+  pendingAction = 'generate';
+  abrirConfirmacion();
+});
 
+function continuarDespuesDeConfirmar() {
+  if (pendingAction !== 'generate') return;
+  const nombre = normalizarNombre(nombreInput.value);
   // Construye el objeto y renderiza como JSON
   const data = construirObjetoInvitacion(nombre);
   renderJson(data);
@@ -92,7 +114,7 @@ generarBtn.addEventListener('click', () => {
   escribirTerminal(`$ node invitacion.js\n`);
   escribirTerminal(`> Generando invitación para ${nombre}...\n`);
   setTimeout(() => escribirTerminal('> Listo. Abra el panel de invitación.\n'), 500);
-});
+}
 
 if (pauseMusicBtn) pauseMusicBtn.addEventListener('click', () => {
   if (!audio) return;
@@ -206,6 +228,47 @@ function renderPretty(data) {
   if (pFirma) pFirma.textContent = data.destinataria;
   if (pFechaPie) pFechaPie.textContent = data.fecha;
 }
+
+// Confirmación modal
+function abrirConfirmacion() {
+  if (!confirmModal) return;
+  setModalContent({
+    message: 'Al aceptar esto y luego presionar ejecutar, usted se compromete a asistir.',
+    showExit: true
+  });
+  confirmModal.classList.remove('hidden');
+}
+
+function cerrarConfirmacion() {
+  if (!confirmModal) return;
+  confirmModal.classList.add('hidden');
+}
+
+function setModalContent({ message, showExit }) {
+  if (confirmText) confirmText.textContent = message;
+  if (confirmExit) confirmExit.style.display = showExit ? '' : 'none';
+  const actions = confirmExit?.parentElement;
+  if (actions) {
+    if (showExit) {
+      actions.style.gridTemplateColumns = '1fr 1fr';
+    } else {
+      actions.style.gridTemplateColumns = '1fr';
+    }
+  }
+}
+
+if (confirmContinue) confirmContinue.addEventListener('click', () => {
+  cerrarConfirmacion();
+  continuarDespuesDeConfirmar();
+});
+
+if (confirmExit) confirmExit.addEventListener('click', () => {
+  // Segunda confirmación: solo botón Continuar
+  setModalContent({
+    message: 'Aquí nadie me rechaza 😎. Has presionado continuar. ',
+    showExit: false
+  });
+});
 
 if (toggleViewBtn) {
   toggleViewBtn.addEventListener('click', () => {
