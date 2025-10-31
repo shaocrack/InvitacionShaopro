@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Especial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <audio id="bg-music" src="musica/oe.mp3" preload="auto" loop></audio>
+
+    
+
+    <main class="container">
+        <header class="topbar">
+            <div class="brand">
+                <span class="bracket">{</span>
+                <span class="brand-text">Shaopro.dev</span>
+                <span class="bracket">}</span>
+            </div>
+            <div class="actions-inline">
+                <button id="theme-toggle" class="icon-btn" aria-label="Cambiar tema" title="Cambiar tema (Alt+T)">
+                    <span class="icon" aria-hidden="true">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <section class="card input-card code-frame">
+            <div class="vscode">
+                <div class="editor-header">
+                    <div class="win-controls">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="tab">invitacion.js</div>
+                </div>
+                <div class="editor-body">
+                    <div class="code">
+                        <div class="code-line comment">// ¡Hola, Chica JavaScript!</div>
+                        <div class="code-line">const <span class="token-var">invitacion</span> = {</div>
+                        <div class="code-panel">
+                            <div class="code-field">
+                                <span class="token-key">nombre</span><span class="token-symbol">:</span>
+                                <input id="nombre" class="input code-input" type="text" placeholder="Ingresa tu nombre" autocomplete="name"/>
+                                <span class="token-symbol">,</span>
+                            </div>
+                            <div class="code-field">
+                                <span class="token-key">aceptaCondiciones</span><span class="token-symbol">:</span>
+                                <label class="checkbox inline">
+                                    <input id="acepta" type="checkbox">
+                                    <span class="checkbox-label">true</span>
+                                </label>
+                                <span class="token-symbol">,</span>
+                            </div>
+                            <div class="code-actions">
+                                <button id="generar" class="btn run" disabled title="Enter para continuar">EJECUTAR INVITACIÓN ▣</button>
+                            </div>
+                            <p id="error" class="error" aria-live="polite"></p>
+                        </div>
+                        <div class="code-line">};</div>
+                    </div>
+                </div>
+                <div class="terminal">
+                    <div class="terminal-title">TERMINAL</div>
+                    <div id="terminal-log" class="terminal-log" aria-live="polite"></div>
+                    <div class="prompt">$ <span class="cursor" aria-hidden="true"></span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="invitacion" class="card invite-card code-frame hidden" aria-live="polite">
+            <div class="json-output">
+                <pre id="json-output" class="json-code" aria-label="Invitación en formato JSON"></pre>
+            </div>
+            <div id="invite-pretty" class="pretty hidden">
+                <div class="pretty-inner">
+                    <h3 class="pretty-title">Invitación Especial</h3>
+                    <p class="pretty-greeting">Estimada <span id="p-nombre">Invitada</span>,</p>
+                    <p class="pretty-text" id="p-mensaje"></p>
+                    <div class="pretty-details">
+                        <div><span class="d-label">Fecha:</span> <span id="p-fecha">Mañana, 31 de octubre</span></div>
+                        <div><span class="d-label">Hora:</span> <span id="p-hora">Entre 6:00 y 6:20 pm</span></div>
+                        <div><span class="d-label">Lugar:</span> <span id="p-lugar">Portal Shopping, Quito</span></div>
+                        <div class="d-small" id="p-direccion">Avenidas Simón Bolívar, Panamericana Norte y calle Capitán Giovanni Calles, Quito 170133</div>
+                    </div>
+                    <div class="pretty-sign">
+                        <div class="sign-name" id="p-firma">Nombre</div>
+                        <div class="sign-date" id="p-fecha-pie">Mañana, 31 de octubre</div>
+                    </div>
+                </div>
+            </div>
+            <div class="actions triple">
+                <a id="open-maps" class="btn small" href="#" target="_blank" rel="noopener">Abrir en Google Maps</a>
+                <button id="toggle-view" class="btn small">Ver invitación</button>
+                <button id="pause-music" class="btn small" title="M pausar/continuar, R reiniciar">Pausar música</button>
+            </div>
+        </section>
+    </main>
+
+    <div class="hearts" aria-hidden="true"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
